@@ -1,8 +1,11 @@
 <?php
 include_once('db.php');
-$sql = "SELECT p.id, p.title, p.body, p.author, p.created_at
-from posts as p
+$sql = "SELECT p.id, p.title, p.body, p.author_id, p.created_at, a.first_name, a.last_name
+from posts as p 
+inner join author as a on p.author_id = a.id
 order by p.created_at";
+
+
 
 $posts = fetch($sql, $connection, true);
 
@@ -47,7 +50,7 @@ $posts = fetch($sql, $connection, true);
                         <a href="single-post.php?post_id=<?php echo ($post['id']) ?>">
                             <h2 class="blog-post-title"><?php echo ($post['title']) ?></h2>
                         </a>
-                        <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo ($post['author']) ?></a></p>
+                        <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo ($post['first_name'] . $post['last_name'])  ?></a></p>
 
                         <p><?php echo ($post['body']) ?></p>
 

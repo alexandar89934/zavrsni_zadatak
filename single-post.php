@@ -32,6 +32,10 @@ include_once('db.php');
     if (isset($_GET['post_id'])) {
 
 
+
+
+
+
         $sql = "SELECT 
                     p.id, p.title, p.body, p.created_at
                     FROM posts as p 
@@ -40,8 +44,9 @@ include_once('db.php');
         $singlePost = fetch($sql, $connection);
 
 
-        $sql_comments = "SELECT c.text, c.author
+        $sql_comments = "SELECT c.id, c.text, a.first_name, a.last_name
         FROM comments AS c 
+        inner join author as a on c.id = a.id
         WHERE c.post_id = {$_GET['post_id']}";
 
         $comments = fetch($sql_comments, $connection, true);
@@ -69,7 +74,7 @@ include_once('db.php');
                     <?php foreach ($comments as $comment) { ?>
                         <div class="single-comment">
                             <div>posted by: <strong>
-                                    <?php echo $comment["author"] ?>
+                                    <?php echo $comment["first_name"] . " " . $comment['last_name'] ?>
                                 </strong></div>
                             <div><?php echo $comment["text"] ?>
                             </div>
