@@ -1,19 +1,6 @@
 <?php
 include_once('db.php');
 
-$sql_comments = "SELECT c.text, c.created_at, u.username 
-FROM comments AS c 
-INNER JOIN users AS u ON c.user_id = u.id 
-WHERE c.post_id = {$_GET['post_id']}";
-// $statement = $connection->prepare($sql_comments);
-// $statement->execute();
-// $statement->setFetchMode(PDO::FETCH_ASSOC);
-// $comments = $statement->fetchAll();
-$comments = fetch($sql_comments, $connection, true);
-
-
-
-
 
 ?>
 <!doctype html>
@@ -34,6 +21,7 @@ $comments = fetch($sql_comments, $connection, true);
 
     <!-- Custom styles for this template -->
     <link href="styles/blog.css" rel="stylesheet">
+    <link href="styles/styles.css" rel="stylesheet">
 </head>
 
 <body>
