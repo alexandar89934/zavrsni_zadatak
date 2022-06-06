@@ -1,3 +1,18 @@
+<?php
+include_once('db.php');
+
+
+$sql = "SELECT p.id, p.title, p.body, p.author, p.created_at
+from posts as p
+order by p.created_at";
+
+$posts = fetch($sql, $connection, true);
+
+?>
+
+
+
+
 <!doctype html>
 <html lang="en">
 
