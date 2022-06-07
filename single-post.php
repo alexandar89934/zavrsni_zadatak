@@ -99,14 +99,7 @@ include_once('db.php');
 
 
 
-    <script>
-        var span = document.getElementsByTagName("span")[0];
-        if (span.className == 'male') {
-            span.style.color = "#251aed";
-        } else {
-            span.style.color = "#f00202";
-        }
-    </script>
+
 </body>
 
 </html>
