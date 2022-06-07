@@ -31,14 +31,10 @@ include_once('db.php');
 
     if (isset($_GET['post_id'])) {
 
-
-
-
-
-
         $sql = "SELECT 
-                    p.id, p.title, p.body, p.created_at
+                    p.id, p.title, p.body, p.created_at, a.first_name, a.last_name, a.gender
                     FROM posts as p 
+                    inner join author as a on p.id = a.id
                     WHERE p.id = {$_GET['post_id']}";
 
         $singlePost = fetch($sql, $connection);
@@ -61,7 +57,7 @@ include_once('db.php');
 
                 <header>
                     <h1><?php echo $singlePost['title'] ?></h1>
-                    <div class="va-c-article__meta"><?php echo $singlePost['created_at'] ?>. by <?php echo $singlePost['author'] ?></div>
+                    <div class="va-c-article__meta"><?php echo $singlePost['created_at'] ?>. by <span class="<?php echo ($singlePost['gender']) ?>"><?php echo $singlePost['first_name'] . " " . $singlePost['last_name'] ?></span></div>
                 </header>
                 <div>
                     <p><?php echo $singlePost['body'] ?></p>
@@ -100,6 +96,17 @@ include_once('db.php');
     </main><!-- /.container -->
 
     <?php include('footer.php') ?>
+
+
+
+    <script>
+        var span = document.getElementsByTagName("span")[0];
+        if (span.className == 'male') {
+            span.style.color = "#251aed";
+        } else {
+            span.style.color = "#f00202";
+        }
+    </script>
 </body>
 
 </html>

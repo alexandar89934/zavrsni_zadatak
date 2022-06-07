@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
             }
         });
     </script>
-    </script>
+
 
 
 </body>

@@ -7,6 +7,7 @@
                 <a class="nav-link" href="#">Press</a>
                 <a class="nav-link" href="#">New hires</a>
                 <a class="nav-link" href="#">About</a>
+                <button onclick="location.href = 'create-post.php';">Create post</button>
             </nav>
         </div>
     </div>
