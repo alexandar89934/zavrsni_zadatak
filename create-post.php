@@ -1,16 +1,21 @@
 <?php
 include_once('db.php');
+
+$sql_get_authors = "SELECT id, first_name, last_name, gender from author";
+$authors = fetch($sql_get_authors, $connection, true);
+
 if (isset($_POST['submit'])) {
 
     $body = $_POST['body'];
     $title = $_POST['title'];
+    $author = $_POST['author'];
     if (empty($body) || empty($title)) {
         echo ("Nisu svi podaci popunjeni");
     } else {
         $currentDate = date("Y-m-d h:i");
         $sql = "INSERT INTO posts (
                 title, body, author_id, created_at)
-                VALUES ('$title', '$body', 1,'$currentDate')";
+                VALUES ('$title', '$body', '$author','$currentDate')";
         $statement = $connection->prepare($sql);
         $statement->execute();
         header("Location: ./posts.php");
@@ -53,12 +58,27 @@ if (isset($_POST['submit'])) {
                     <ul class="flex-outer">
                         <li>
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" placeholder="Enter title">
+                            <input type="text" id="title" name="title" placeholder="Enter title" required>
                         </li>
                         <li>
                             <label for="body">Body</label>
-                            <textarea name="body" placeholder="Enter body" rows="10" id="bodyPosts"></textarea><br>
+                            <textarea name="body" placeholder="Enter body" rows="10" id="bodyPosts" required></textarea><br>
                         </li>
+                        <li>
+                            <label for="author">Choose author:</label>
+                            <select name="author" id="author">
+                                <?php foreach ($authors as $author) { ?>
+
+
+                                    <option value="<?php echo ($author['id']) ?>" class="<?php echo ($author['gender']) ?>"><?php echo ($author['first_name'] . " " . $author['last_name']) ?></option>
+
+                                <?php } ?>
+
+                            </select>
+                        </li>
+
+
+
                         <li>
                             <button type="submit" name="submit">Submit</button>
                         </li>
@@ -73,6 +93,20 @@ if (isset($_POST['submit'])) {
     </main><!-- /.container -->
 
     <?php include('footer.php') ?>
+
+    <script>
+        const select = document.querySelector("select");
+        select.addEventListener("change", () => {
+            if (select.querySelector(`option[value="${select.value}"]`).className === 'male') {
+                select.style.color = "#251aed";
+            } else {
+                select.style.color = "#f00202";
+            }
+        });
+    </script>
+    </script>
+
+
 </body>
 
 </html>

@@ -9,3 +9,14 @@ create table comments (id int primary key auto_increment, author varchar(255), t
 insert into comments (author, text, post_id) values ('Lazar','prvi komentar',1)
 insert into comments (author, text, post_id) values ('Lazar','drugi komentar',1)
 insert into comments (author, text, post_id) values ('Lazar','treci komentar',1)
+create table author (id int primary key auto_increment,first_name varchar(255),last_name varchar(255), gender varchar(255))
+insert into author values (null, 'Aleksandar', 'Radovanovic', 'male')
+insert into author values (null, 'Marija', 'Radovanovic', 'female')
+insert into author values (null, 'Tea', 'Radovanovic', 'female')
+alter table posts drop column author 
+alter table posts add column author_id int
+alter table posts add foreign key (author_id) references author(id);
+select * from posts
+update posts set author_id = 1 where id = 1
+update posts set author_id = 1 where id = 2
+update posts set author_id = 1 where id = 3

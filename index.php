@@ -2,8 +2,9 @@
 include_once('db.php');
 
 
-$sql = "SELECT p.id, p.title, p.body, p.author, p.created_at
-from posts as p
+$sql = "SELECT p.id, p.title, p.body, p.author_id, p.created_at, a.first_name, a.last_name
+from posts as p 
+inner join author as a on p.author_id = a.id
 order by p.created_at";
 
 $posts = fetch($sql, $connection, true);
